@@ -1,0 +1,7 @@
+{{#user}}
+	<h2>Hello, {{user.email}}.</h2>
+{{/user}}
+{{^user}}
+	<h2>Welcome!</h2>
+	<p>Please <a href="/login">log in</a>.</p>
+{{/user}}
