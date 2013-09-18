@@ -1,0 +1,75 @@
+<div class="pure-u-1" id="list">
+    <!--
+    <div class="instance-item instance-item-selected pure-g">
+        <div class="pure-u">
+            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
+                 width="64"/>
+        </div>
+
+        <div class="pure-u-3-4">
+            <h5 class="instance-name">Instance</h5>
+            <h4 class="instance-subject">Id</h4>
+
+            <p class="instance-desc">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+        </div>
+    </div>
+
+    <div class="instance-item instance-item-unread pure-g">
+        <div class="pure-u">
+            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
+                 width="64"/>
+        </div>
+
+        <div class="pure-u-3-4">
+            <h5 class="instance-name">Instance</h5>
+            <h4 class="instance-subject">Id</h4>
+
+            <p class="instance-desc">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+        </div>
+    </div>
+    -->
+    {{#instances}}
+    <div class="instance-item instance-item-unread pure-g">
+        <div class="pure-u">
+            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
+                 width="64"/>
+        </div>
+
+        <div class="pure-u-3-4">
+            <h5 class="instance-name">{{InstanceId}}</h5>
+            <h4 class="instance-subject">{{ImageId}}</h4>
+
+            <p class="instance-desc">
+                <a href="http://{{PublicDnsName}}">{{PublicDnsName}}</a> ({{PublicIpAddress}})
+            </p>
+        </div>
+    </div>
+    {{/instances}}
+</div>
+
+<div class="pure-u-1" id="main">
+    <div class="instance-content">
+        <div class="instance-content-header pure-g">
+            <div class="pure-u-1-2">
+                <h1 class="instance-content-title">Instance Id</h1>
+
+                <p class="instance-content-subtitle">
+                    <span>3:56pm, April 3, 2012</span>
+                </p>
+            </div>
+
+            <div class="pure-u-1-2 instance-content-controls">
+                <button class="pure-button secondary-button">Start</button>
+                <button class="pure-button secondary-button">Stop</button>
+            </div>
+        </div>
+
+        <div class="instance-content-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium beatae minus modi nostrum officia omnis placeat, quisquam quos reiciendis voluptatibus. Aut autem eligendi facere id, ipsa neque nesciunt optio quo.
+        </div>
+    </div>
+</div>

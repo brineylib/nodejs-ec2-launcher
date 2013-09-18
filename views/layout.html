@@ -1,22 +1,67 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{{title}}</title>
-		<script src="/js/vendor/zepto.min.js"></script>
-		<script src="https://login.persona.org/include.js" type="text/javascript"></script>
-	</head>
-	<body>
-		<p>
-			{{#user}}
-				<a href="/">Home</a> | 
-				<a href="/account">Account</a> | 
-				<a href="/logout">Log Out</a>
-			{{/user}}
-			{{^user}}
-				<a href="/">Home</a> | 
-				<a href="/login">Login</a>
-			{{/user}}
-		</p>
-		{{{ yield }}}
-	</body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- making sure users of Internet Explorer can't use Compatibility Mode, as this will break Persona -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>EC2 Launcher</title>
+    <link rel="stylesheet" href="/css/vendor/pure-min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div class="pure-g-r content" id="layout">
+    <div class="pure-u" id="nav">
+
+        {{#user}}
+        <a href="#" class="nav-menu-button">Menu</a>
+        <div class="nav-inner">
+
+            <p><a class="pure-button primary-button" id="btn_log_out" href="/logout"><abbr title="Email: {{user.email}}">Sign out</abbr></a></p>
+
+            <div class="pure-menu pure-menu-open">
+                <ul>
+                    <li><a href="#">Instances <span class="instance-count">(#)</span></a></li>
+                    <!--
+                    <li class="pure-menu-heading">Bundles</li>
+                    <li><a href="#">Bundle 1</a></li>
+                    <li><a href="#">Bundle 2</a></li>
+                    -->
+                </ul>
+            </div>
+        </div>
+        {{/user}}
+    </div>
+
+    {{{yield}}}
+</div>
+
+<form action="/auth/persona" method="post" style="display:none;">
+    <input type="text" name="assertion"/>
+</form>
+
+<script src="/js/vendor/yui-min.js"></script>
+<script>
+    YUI().use('node-base', 'node-event-delegate', function (Y) {
+
+        var menuButton = Y.one('.nav-menu-button'),
+                nav        = Y.one('#nav');
+
+        // Setting the active class name expands the menu vertically on small screens.
+        menuButton.on('click', function (e) {
+            nav.toggleClass('active');
+        });
+
+        // Your application code goes here...
+
+    });
+</script>
+
+<script src="/js/vendor/zepto-min.js"></script>
+<script src="https://login.persona.org/include.js" type="text/javascript"></script>
+
+<script src="/js/main.js"></script>
+
+</body>
 </html>
