@@ -30,6 +30,8 @@ Node.js web application to start and stop AWS EC2 instances
 
 [zepto.js](http://zeptojs.com/) - a minimalist JavaScript library for modern browsers with a largely jQuery-compatible API. 
 
+[Font Awesome](http://fortawesome.github.io/Font-Awesome/) - The iconic font designed for Bootstrap.
+
 ## Start the app
 
     $ foreman start

@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- making sure users of Internet Explorer can't use Compatibility Mode, as this will break Persona -->
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
     <title>EC2 Launcher</title>
-    <link rel="stylesheet" href="/css/vendor/pure-min.css">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/vendor/pure.min.css">
+    <link rel="stylesheet" href="/css/vendor/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>
 <div class="pure-g-r content" id="layout">
     <div class="pure-u" id="nav">
+
+        <a href="/"><i class="icon-dashboard icon-large"></i><br/><strong><small>EC2 Launcher</small></strong></a>
 
         {{#user}}
         <a href="#" class="nav-menu-button">Menu</a>
@@ -22,7 +30,7 @@
 
             <div class="pure-menu pure-menu-open">
                 <ul>
-                    <li><a href="#">Instances <span class="instance-count">(#)</span></a></li>
+                    <li><a href="/instances">Instances <!--span class="instance-count">(#)</span--></a></li>
                     <!--
                     <li class="pure-menu-heading">Bundles</li>
                     <li><a href="#">Bundle 1</a></li>
@@ -41,7 +49,7 @@
     <input type="text" name="assertion"/>
 </form>
 
-<script src="/js/vendor/yui-min.js"></script>
+<script src="/js/vendor/yui.min.js"></script>
 <script>
     YUI().use('node-base', 'node-event-delegate', function (Y) {
 
@@ -58,7 +66,7 @@
     });
 </script>
 
-<script src="/js/vendor/zepto-min.js"></script>
+<script src="/js/vendor/zepto.min.js"></script>
 <script src="https://login.persona.org/include.js" type="text/javascript"></script>
 
 <script src="/js/main.js"></script>

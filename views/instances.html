@@ -1,75 +1,89 @@
 <div class="pure-u-1" id="list">
-    <!--
-    <div class="instance-item instance-item-selected pure-g">
-        <div class="pure-u">
-            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
-                 width="64"/>
-        </div>
-
-        <div class="pure-u-3-4">
-            <h5 class="instance-name">Instance</h5>
-            <h4 class="instance-subject">Id</h4>
-
-            <p class="instance-desc">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-        </div>
-    </div>
-
-    <div class="instance-item instance-item-unread pure-g">
-        <div class="pure-u">
-            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
-                 width="64"/>
-        </div>
-
-        <div class="pure-u-3-4">
-            <h5 class="instance-name">Instance</h5>
-            <h4 class="instance-subject">Id</h4>
-
-            <p class="instance-desc">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-        </div>
-    </div>
-    -->
     {{#instances}}
-    <div class="instance-item instance-item-unread pure-g">
-        <div class="pure-u">
-            <img class="instance-avatar" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y" height="64"
-                 width="64"/>
-        </div>
+        {{#selected}}
+            <div class="instance-item instance-item-selected pure-g">
+        {{/selected}}
+        {{^selected}}
+        <div class="instance-item instance-item-{{State.Name}} pure-g">
+        {{/selected}}
+            <a href="/instances/{{InstanceId}}">
+                <div class="pure-u-1-2">
+                    <i class="icon-laptop icon-4x"></i>
+                </div>
 
-        <div class="pure-u-3-4">
-            <h5 class="instance-name">{{InstanceId}}</h5>
-            <h4 class="instance-subject">{{ImageId}}</h4>
+                <div class="pure-u-1-2">
+                    <h5 class="instance-image-id">{{ImageId}} <small>{{InstanceType}}</small></h5>
+                    <h4 class="instance-id">{{InstanceId}}</h4>
 
-            <p class="instance-desc">
-                <a href="http://{{PublicDnsName}}">{{PublicDnsName}}</a> ({{PublicIpAddress}})
-            </p>
+                    <p class="instance-desc">
+                        <strong>State: {{State.Name}}</strong><br/>
+                        {{#Tags}}
+                          {{Key}}: {{Value}}<br/>
+                        {{/Tags}}
+                    </p>
+                </div>
+            </a>
         </div>
-    </div>
     {{/instances}}
 </div>
 
 <div class="pure-u-1" id="main">
-    <div class="instance-content">
-        <div class="instance-content-header pure-g">
-            <div class="pure-u-1-2">
-                <h1 class="instance-content-title">Instance Id</h1>
+    {{#instance}}
+        <div class="instance-content">
+            <div class="instance-content-header pure-g">
+                <div class="pure-u-1-2">
+                    <h2 class="instance-content-image-id">{{ImageId}} <small>{{InstanceType}}</small></h2>
+                    <h1 class="instance-content-instance-id">{{InstanceId}}</h1>
 
-                <p class="instance-content-subtitle">
-                    <span>3:56pm, April 3, 2012</span>
-                </p>
+                    <p class="instance-content-subtitle">
+                        <span class="instance-label-state-{{State.Name}}"></span>{{State.Name}}
+                    </p>
+                </div>
+
+                <div class="pure-u-1-2 instance-content-controls">
+                    <a class="pure-button pure-button-start" href="#"><i class="icon-play"></i> Start</a>
+                    <a class="pure-button pure-button-stop" href="#"><i class="icon-stop"></i> Stop</a>
+                </div>
+
+                <!--div class="pure-u-1-2 instance-content-push-controls">
+                    <div class="push-button">
+                        <a class="push-button-start" href="#"><i class="icon-play"></i></a>
+                    </div>
+                    <div class="push-button">
+                        <a class="push-button-stop" href="#"><i class="icon-stop"></i></a>
+                    </div>
+                </div-->
+
             </div>
 
-            <div class="pure-u-1-2 instance-content-controls">
-                <button class="pure-button secondary-button">Start</button>
-                <button class="pure-button secondary-button">Stop</button>
+            <!--div class="instance-content-body">
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Property</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Public DNS</td>
+                        <td><a href="http://{{PublicDnsName}}/">{{PublicDnsName}}</a></td>
+                    </tr>
+                    <tr>
+                        <td>Public IP</td>
+                        <td>{{PublicIpAddress}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div-->
+        </div>
+    {{/instance}}
+    {{^instance}}
+        <div class="instance-content">
+            <div class="instance-content-body">
+                Please select an instance from the list by clicking on the instance id to toggle the it's state (i.e. start/ stop the instance).
             </div>
         </div>
-
-        <div class="instance-content-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium beatae minus modi nostrum officia omnis placeat, quisquam quos reiciendis voluptatibus. Aut autem eligendi facere id, ipsa neque nesciunt optio quo.
-        </div>
-    </div>
+    {{/instance}}
 </div>

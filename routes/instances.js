@@ -17,21 +17,27 @@ AWS.config.update({region: process.env.AWS_REGION || 'eu-west-1'});
 /*
  * GET EC2 instance listing.
  */
-
-exports.list = function(req, res){
-    //res.send("respond with a resource");
+exports.list = function(req, res) {
+    var instanceId = req.params.id;
     new AWS.EC2().describeInstances(function(error, data) {
-        instances = [];
+        var instances = [];
+        var instanceSelected = null;
         if (error) {
-            console.log(error); // an error occurred
+            // an error occurred
+            console.log(error);
             res.render('error', { user: req.user, error: error });
         } else {
-            //console.log(JSON.stringify(data, null, '\t')); // request succeeded
+            // request succeeded
             data.Reservations.forEach(function(instance,i){
                 instance=instance.Instances[0];
+                if(instance.InstanceId === instanceId) {
+                    instance.selected='true';
+                    instanceSelected = instance;
+                }
                 instances.push(instance);
+                //console.log(JSON.stringify(instance, null, '\t'));
             });
-            res.render('instances', { user: req.user, instances: instances });
+            res.render('instances', { user: req.user, instances: instances, instance: instanceSelected });
         }
     });
 };
