@@ -18,20 +18,27 @@ AWS.config.update({region: process.env.AWS_REGION || 'eu-west-1'});
  * GET EC2 instance listing.
  */
 exports.list = function(req, res) {
-    var instanceId = req.params.id;
+    var instanceId = req.params.id || '';
     new AWS.EC2().describeInstances(function(error, data) {
         var instances = [];
         var instanceSelected = null;
         if (error) {
             // an error occurred
             console.log(error);
-            res.render('error', { user: req.user, error: error });
+            res.send(500, error);
         } else {
             // request succeeded
             data.Reservations.forEach(function(instance,i){
                 instance=instance.Instances[0];
-                if(instance.InstanceId === instanceId) {
-                    instance.selected='true';
+                if(instanceId !== '' && instance.InstanceId === instanceId) {
+                    instance.selected=true;
+                    var startStates = new Array('stopped', 'terminated');
+                    var stopStates = new Array('running', 'pending');
+                    if(stopStates.indexOf(instance.State.Name) > -1) {
+                        instance.togglActionStop = true;
+                    } else if (startStates.indexOf(instance.State.Name) > -1) {
+                        instance.togglActionStart = true;
+                    }
                     instanceSelected = instance;
                 }
                 instances.push(instance);
@@ -40,4 +47,39 @@ exports.list = function(req, res) {
             res.render('instances', { user: req.user, instances: instances, instance: instanceSelected });
         }
     });
+};
+
+/*
+ * GET toggl EC2 instance state
+ * i.e. start/ stop the instance
+ */
+exports.action = function(req, res) {
+    var instanceId = req.params.id || '';
+    var action = req.params.action;
+    if(action === 'start') {
+        console.log('start');
+        new AWS.EC2().startInstances({InstanceIds: new Array(instanceId)}, function(error, data) {
+            if (error) {
+                // an error occurred
+                console.log(error);
+                res.send(500, error);
+            } else {
+                res.redirect('/instances/'+instanceId);
+            }
+        });
+    } else if (action === 'stop') {
+        console.log('stop');
+        new AWS.EC2().stopInstances({InstanceIds: new Array(instanceId)}, function(error, data) {
+            if (error) {
+                // an error occurred
+                console.log(error);
+                res.send(500, error);
+            } else {
+                res.redirect('/instances/'+instanceId);
+            }
+        });
+    } else {
+        res.send(400);
+    }
+
 };

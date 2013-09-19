@@ -22,6 +22,8 @@ Node.js web application to start and stop AWS EC2 instances
 
     $ npm install passport-browserid --save
 
+[Connect Roles](http://documentup.com/ForbesLindesay/connect-roles) - an authorisation provider, designed to work with connect or express.
+
 [AWS SDK für Node.js](https://aws.amazon.com/de/sdkfornodejs/)
 
     $ npm install aws-sdk --save

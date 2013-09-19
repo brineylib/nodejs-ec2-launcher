@@ -137,11 +137,11 @@ a {
   border-left: 6px solid #40c365;
 }
 
-.instance-item-stopped {
+.instance-item-stopped, .instance-item-terminated {
   border-left: 6px solid #ff4e19;
 }
 
-.instance-item-booting {
+.instance-item-pending, .instance-item-shutting-down, .instance-item-stopping {
   border-left: 6px solid #ffc94c;
 }
 
@@ -236,27 +236,19 @@ a {
   }
 }
 
-.pure-button-running,
-.pure-button-stopped,
-.pure-button-pending,
-.pure-button-shutting-down,
-.pure-button-stopping,
-.pure-button-terminated{
+.pure-button-start,
+.pure-button-stop{
   color: white;
   border-radius: 4px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-.pure-button-running {
+.pure-button-start {
   background: rgb(28, 184, 65); /* this is a green */
 }
 
-.pure-button-stopped, .pure-button-terminated {
+.pure-button-stop {
   background: rgb(202, 60, 60); /* this is a maroon */
-}
-
-.pure-button-pending, .pure-button-shutting-down, .pure-button-stopping {
-  background: rgb(223, 117, 20); /* this is an orange */
 }
 
 .push-button {

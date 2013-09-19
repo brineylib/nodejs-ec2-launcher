@@ -1,4 +1,5 @@
 <div class="pure-u-1" id="list">
+
     {{#instances}}
         {{#selected}}
             <div class="instance-item instance-item-selected pure-g">
@@ -37,12 +38,15 @@
 
                     <p class="instance-content-subtitle">
                         <span class="instance-label-state-{{State.Name}}"></span>{{State.Name}}
+                        &nbsp;<a href="/instances/{{InstanceId}}"><i class="icon-refresh"></i> Refresh<!--span class="instance-count">(#)</span--></a>
                     </p>
                 </div>
 
                 <div class="pure-u-1-2 instance-content-controls">
-                    <a class="pure-button pure-button-start" href="#"><i class="icon-play"></i> Start</a>
-                    <a class="pure-button pure-button-stop" href="#"><i class="icon-stop"></i> Stop</a>
+                    <a class="pure-button pure-button-start" href="/instances/{{InstanceId}}/start" {{^togglActionStart}}disabled{{/togglActionStart}}>
+                        <i class="icon-play"></i> Start</a>
+                    <a class="pure-button pure-button-stop" href="/instances/{{InstanceId}}/stop" {{^togglActionStop}}disabled{{/togglActionStop}}
+                    ><i class="icon-stop"></i> Stop</a>
                 </div>
 
                 <!--div class="pure-u-1-2 instance-content-push-controls">

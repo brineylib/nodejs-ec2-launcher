@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var instances = require('./routes/instances');
+var workflows = require('./routes/workflows');
 var http = require('http');
 var path = require('path');
 
@@ -84,11 +85,17 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/instances', ensureAuthenticated, instances.list);
-//app.get('/instances', instances.list);
+app.get('/instances/:id?', ensureAuthenticated, instances.list);
+//app.get('/instances/:id?', instances.list);
 
-app.get('/instances/:id', ensureAuthenticated, instances.list);
-//app.get('/instances/:id', instances.list);
+app.get('/instances/:id/:action', ensureAuthenticated, instances.action);
+//app.get('/instances/:id/:action', instances.action);
+
+//app.get('/workflows/:id?', ensureAuthenticated, workflows.list);
+//app.get('/workflows/:id?', workflows.list);
+
+//app.get('/workflows/:id/:action', ensureAuthenticated, workflows.action);
+//app.get('/workflows/:id/:action', workflows.action);
 
 // POST /auth/persona
 // Use passport.authenticate() as route middleware to authenticate the

@@ -26,16 +26,12 @@
         <a href="#" class="nav-menu-button">Menu</a>
         <div class="nav-inner">
 
-            <p><a class="pure-button primary-button" id="btn_log_out" href="/logout"><abbr title="Email: {{user.email}}">Sign out</abbr></a></p>
+            <p><a id="btn_log_out" href="/logout"><i class="icon-signout"></i> <abbr title="Email: {{user.email}}">Sign out</abbr></a></p>
 
             <div class="pure-menu pure-menu-open">
                 <ul>
                     <li><a href="/instances">Instances <!--span class="instance-count">(#)</span--></a></li>
-                    <!--
-                    <li class="pure-menu-heading">Bundles</li>
-                    <li><a href="#">Bundle 1</a></li>
-                    <li><a href="#">Bundle 2</a></li>
-                    -->
+                    <!--li><a href="/workflows">Workflows --><!--span class="workflow-count">(#)</span--><!--/a></li-->
                 </ul>
             </div>
         </div>
