@@ -60,27 +60,25 @@
 
             </div>
 
-            <!--div class="instance-content-body">
+            <div class="instance-content-body">
                 <table class="pure-table pure-table-bordered">
                     <thead>
                     <tr>
-                        <th>Label</th>
-                        <th>Property</th>
+                        <th>Tag</th>
+                        <th>Value</th>
                     </tr>
                     </thead>
 
                     <tbody>
+                    {{#Tags}}
                     <tr>
-                        <td>Public DNS</td>
-                        <td><a href="http://{{PublicDnsName}}/">{{PublicDnsName}}</a></td>
+                        <td>{{Key}}</td>
+                        <td>{{Value}}</td>
                     </tr>
-                    <tr>
-                        <td>Public IP</td>
-                        <td>{{PublicIpAddress}}</td>
-                    </tr>
+                    {{/Tags}}
                     </tbody>
                 </table>
-            </div-->
+            </div>
         </div>
     {{/instance}}
     {{^instance}}
