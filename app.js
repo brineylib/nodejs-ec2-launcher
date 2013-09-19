@@ -5,6 +5,8 @@
 
 var express = require('express');
 var routes = require('./routes');
+var instances = require('./routes/instances');
+var workflows = require('./routes/workflows');
 var http = require('http');
 var path = require('path');
 
@@ -33,7 +35,9 @@ passport.deserializeUser(function(email, done) {
 // credentials (in this case, a BrowserID verified email address), and invoke
 // a callback with a user object.
 passport.use(new BrowserIDStrategy({
-    audience: 'http://' + (process.env.HOST || 'localhost') + ':' + (process.env.PORT || '3000')
+    //Explicitly specify the Persona audience parameter
+    //You shall not trust the Host header sent by the user's browser!!
+    audience: (process.env.PERSONA_AUDIENCE || 'http://localhost:3000')
   },
   function(email, done) {
     // asynchronous verification, for effect...
@@ -81,22 +85,26 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
+app.get('/instances/:id?', ensureAuthenticated, instances.list);
+//app.get('/instances/:id?', instances.list);
 
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
-});
+app.get('/instances/:id/:action', ensureAuthenticated, instances.action);
+//app.get('/instances/:id/:action', instances.action);
+
+//app.get('/workflows/:id?', ensureAuthenticated, workflows.list);
+//app.get('/workflows/:id?', workflows.list);
+
+//app.get('/workflows/:id/:action', ensureAuthenticated, workflows.action);
+//app.get('/workflows/:id/:action', workflows.action);
 
 // POST /auth/persona
 // Use passport.authenticate() as route middleware to authenticate the
 // request. BrowserId authentication will verify the assertion obtained from
 // the browser via the JavaScript API.
 app.post('/auth/persona', 
-  passport.authenticate('browserid', { failureRedirect: '/login' }),
+  passport.authenticate('browserid', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/instances');
   });
 
 app.get('/logout', function(req, res){
@@ -115,5 +123,5 @@ http.createServer(app).listen(app.get('port'), function(){
 // login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/')
 }

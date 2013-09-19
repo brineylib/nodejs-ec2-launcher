@@ -1,0 +1,93 @@
+<div class="pure-u-1" id="list">
+
+    {{#instances}}
+        {{#selected}}
+            <div class="instance-item instance-item-selected pure-g">
+        {{/selected}}
+        {{^selected}}
+        <div class="instance-item instance-item-{{State.Name}} pure-g">
+        {{/selected}}
+            <a href="/instances/{{InstanceId}}">
+                <div class="pure-u-1-2">
+                    <i class="icon-laptop icon-4x"></i>
+                </div>
+
+                <div class="pure-u-1-2">
+                    <h5 class="instance-image-id">{{ImageId}} <small>{{InstanceType}}</small></h5>
+                    <h4 class="instance-id">{{InstanceId}}</h4>
+
+                    <p class="instance-desc">
+                        <strong>State: {{State.Name}}</strong><br/>
+                        {{#Tags}}
+                          {{Key}}: {{Value}}<br/>
+                        {{/Tags}}
+                    </p>
+                </div>
+            </a>
+        </div>
+    {{/instances}}
+</div>
+
+<div class="pure-u-1" id="main">
+    {{#instance}}
+        <div class="instance-content">
+            <div class="instance-content-header pure-g">
+                <div class="pure-u-1-2">
+                    <h2 class="instance-content-image-id">{{ImageId}} <small>{{InstanceType}}</small></h2>
+                    <h1 class="instance-content-instance-id">{{InstanceId}}</h1>
+
+                    <p class="instance-content-subtitle">
+                        <span class="instance-label-state-{{State.Name}}"></span>{{State.Name}}
+                        &nbsp;<a href="/instances/{{InstanceId}}"><i class="icon-refresh"></i> Refresh<!--span class="instance-count">(#)</span--></a>
+                    </p>
+                </div>
+
+                <div class="pure-u-1-2 instance-content-controls">
+                    <a class="pure-button pure-button-start" href="/instances/{{InstanceId}}/start" {{^togglActionStart}}disabled{{/togglActionStart}}>
+                        <i class="icon-play"></i> Start</a>
+                    <a class="pure-button pure-button-stop" href="/instances/{{InstanceId}}/stop" {{^togglActionStop}}disabled{{/togglActionStop}}
+                    ><i class="icon-stop"></i> Stop</a>
+                </div>
+
+                <!--div class="pure-u-1-2 instance-content-push-controls">
+                    <div class="push-button">
+                        <a class="push-button-start" href="#"><i class="icon-play"></i></a>
+                    </div>
+                    <div class="push-button">
+                        <a class="push-button-stop" href="#"><i class="icon-stop"></i></a>
+                    </div>
+                </div-->
+
+            </div>
+
+            <!--div class="instance-content-body">
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Property</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Public DNS</td>
+                        <td><a href="http://{{PublicDnsName}}/">{{PublicDnsName}}</a></td>
+                    </tr>
+                    <tr>
+                        <td>Public IP</td>
+                        <td>{{PublicIpAddress}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div-->
+        </div>
+    {{/instance}}
+    {{^instance}}
+        <div class="instance-content">
+            <div class="instance-content-body">
+                Please select an instance from the list by clicking on the instance id to toggle the it's state (i.e. start/ stop the instance).
+            </div>
+        </div>
+    {{/instance}}
+</div>

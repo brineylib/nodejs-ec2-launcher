@@ -1,7 +1,23 @@
 {{#user}}
-	<h2>Hello, {{user.email}}.</h2>
+<div class="pure-u-1" id="list">
+    <div class="instance-item instance-item-unread pure-g">
+        <div class="pure-u">
+            <h1>EC2 Launcher</h1>
+            <h2>Welcome!</h2>
+            <p>List of <a href="/instances">available instances.</a></p>
+        </div>
+    </div>
+</div>
 {{/user}}
 {{^user}}
-	<h2>Welcome!</h2>
-	<p>Please <a href="/login">log in</a>.</p>
+    <div class="pure-u-1" id="list">
+        <div class="instance-item instance-item-unread pure-g">
+            <div class="pure-u">
+                <h1>EC2 Launcher</h1>
+                <h2>Welcome!</h2>
+                <p>Please log in.</p>
+                <p><img src="/img/persona_sign_in_with_blue.png" alt="Sign in with Persona" id="btn_persona_sign_in_with"></p>
+            </div>
+        </div>
+    </div>
 {{/user}}
