@@ -84,11 +84,11 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-//app.get('/instances', ensureAuthenticated, instances.list);
-app.get('/instances', instances.list);
+app.get('/instances', ensureAuthenticated, instances.list);
+//app.get('/instances', instances.list);
 
-//app.get('/instances/:id', ensureAuthenticated, instances.list);
-app.get('/instances/:id', instances.list);
+app.get('/instances/:id', ensureAuthenticated, instances.list);
+//app.get('/instances/:id', instances.list);
 
 // POST /auth/persona
 // Use passport.authenticate() as route middleware to authenticate the
