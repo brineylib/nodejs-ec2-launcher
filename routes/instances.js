@@ -30,19 +30,23 @@ exports.list = function(req, res) {
             // request succeeded
             data.Reservations.forEach(function(instance,i){
                 instance=instance.Instances[0];
-                if(instanceId !== '' && instance.InstanceId === instanceId) {
-                    instance.selected=true;
-                    var startStates = new Array('stopped', 'terminated');
-                    var stopStates = new Array('running', 'pending');
-                    if(stopStates.indexOf(instance.State.Name) > -1) {
-                        instance.togglActionStop = true;
-                    } else if (startStates.indexOf(instance.State.Name) > -1) {
-                        instance.togglActionStart = true;
+                // only instances the user is authorized for
+                var users = JSON.parse(process.env.PERSONA_USERS_INSTANCES) || {};
+                if (users[req.user.email].indexOf(instance.InstanceId) != -1) {
+                    if(instanceId !== '' && instance.InstanceId === instanceId) {
+                        instance.selected=true;
+                        var startStates = new Array('stopped', 'terminated');
+                        var stopStates = new Array('running', 'pending');
+                        if(stopStates.indexOf(instance.State.Name) > -1) {
+                            instance.togglActionStop = true;
+                        } else if (startStates.indexOf(instance.State.Name) > -1) {
+                            instance.togglActionStart = true;
+                        }
+                        instanceSelected = instance;
                     }
-                    instanceSelected = instance;
+                    instances.push(instance);
+                    //console.log(JSON.stringify(instance, null, '\t'));
                 }
-                instances.push(instance);
-                //console.log(JSON.stringify(instance, null, '\t'));
             });
             res.render('instances', { user: req.user, instances: instances, instance: instanceSelected });
         }
@@ -57,7 +61,6 @@ exports.action = function(req, res) {
     var instanceId = req.params.id || '';
     var action = req.params.action;
     if(action === 'start') {
-        console.log('start');
         new AWS.EC2().startInstances({InstanceIds: new Array(instanceId)}, function(error, data) {
             if (error) {
                 // an error occurred
@@ -68,7 +71,6 @@ exports.action = function(req, res) {
             }
         });
     } else if (action === 'stop') {
-        console.log('stop');
         new AWS.EC2().stopInstances({InstanceIds: new Array(instanceId)}, function(error, data) {
             if (error) {
                 // an error occurred

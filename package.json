@@ -3,9 +3,9 @@
   "description": "Node.js web application to start and stop AWS EC2 instances",
   "version": "0.0.1",
   "author": {
-    "name" : "Matthias Geisler",
-    "email" : "matthias@openwebcraft.com",
-    "url" : "http://openwebcraft.com"
+    "name": "Matthias Geisler",
+    "email": "matthias@openwebcraft.com",
+    "url": "http://openwebcraft.com"
   },
   "private": true,
   "dependencies": {

@@ -22,8 +22,6 @@ Node.js web application to start and stop AWS EC2 instances
 
     $ npm install passport-browserid --save
 
-[Connect Roles](http://documentup.com/ForbesLindesay/connect-roles) - an authorisation provider, designed to work with connect or express.
-
 [AWS SDK für Node.js](https://aws.amazon.com/de/sdkfornodejs/)
 
     $ npm install aws-sdk --save
@@ -41,3 +39,16 @@ Node.js web application to start and stop AWS EC2 instances
 Point your favourite browser to [http://localhost:3000/](http://localhost:3000/).
 
 Default PORT is `3000`. To change create `.env` file with e.g. `PORT=3001`.
+
+## Configuration
+
+Environment variables:
+
+    PORT=3000
+    PERSONA_AUDIENCE=http://localhost:3000
+
+    AWS_ACCESS_KEY_ID=[AWS_ACCESS_KEY_ID]
+    AWS_SECRET_ACCESS_KEY=[AWS_SECRET_ACCESS_KEY]
+    AWS_REGION=[AWS_REGION]
+
+    PERSONA_USERS_INSTANCES={"jon.doe@example.com":["i-ab12cde1"]}

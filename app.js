@@ -85,16 +85,16 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/instances/:id?', ensureAuthenticated, instances.list);
+app.get('/instances/:id?', ensureAuthenticated, ensureAuthorized, instances.list);
 //app.get('/instances/:id?', instances.list);
 
-app.get('/instances/:id/:action', ensureAuthenticated, instances.action);
+app.get('/instances/:id/:action', ensureAuthenticated, ensureAuthorized, instances.action);
 //app.get('/instances/:id/:action', instances.action);
 
-//app.get('/workflows/:id?', ensureAuthenticated, workflows.list);
+//app.get('/workflows/:id?', ensureAuthenticated, ensureAuthorized, workflows.list);
 //app.get('/workflows/:id?', workflows.list);
 
-//app.get('/workflows/:id/:action', ensureAuthenticated, workflows.action);
+//app.get('/workflows/:id/:action', ensureAuthenticated, ensureAuthorized, workflows.action);
 //app.get('/workflows/:id/:action', workflows.action);
 
 // POST /auth/persona
@@ -121,7 +121,37 @@ http.createServer(app).listen(app.get('port'), function(){
 // the request is authenticated (typically via a persistent login session),
 // the request will proceed. Otherwise, the user will be redirected to the
 // login page.
+//function ensureAuthenticated(req, res, next) {
+//  if (req.isAuthenticated()) { return next(); }
+//  res.redirect('/')
+//}
+
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/')
+
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+}
+
+function ensureAuthorized(req, res, next) {
+
+    var users = JSON.parse(process.env.PERSONA_USERS_INSTANCES) || {};
+    var instanceId = ''; // default
+    if (req.params && req.params.id) {instanceId = req.params.id;}
+    if (userIsAuthorized(req.user, users, instanceId)) { return next(); }
+    else {
+        req.logout();
+        return res.send(403, 'Not Authorized' );
+    }
+}
+
+function userIsAuthorized(user, users, instanceId) {
+    if (users.hasOwnProperty(user.email)) {
+        // known user
+        if (instanceId != '') {
+            // valid instance id?
+            if (users[user.email].indexOf(instanceId) == -1) {
+                return false;
+            } else { return true; }
+        } else { return true; }
+    } else { return false; }
 }
