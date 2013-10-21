@@ -61,10 +61,35 @@
             </div>
 
             <div class="instance-content-body">
+
+                <h3>Details</h3>
+                <dl>
+                    <dt>Public DNS</dt>
+                    <dd><a href="{{PublicDNS}}">{{PublicDNS}}</a></dd>
+                </dl>
+
+                <h3>Tags</h3>
                 <table class="pure-table pure-table-bordered">
                     <thead>
                     <tr>
                         <th>Tag</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {{#Tags}}
+                    <tr>
+                        <td>{{Key}}</td>
+                        <td>{{Value}}</td>
+                    </tr>
+                    {{/Tags}}
+                    </tbody>
+                </table>
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Property</th>
                         <th>Value</th>
                     </tr>
                     </thead>
