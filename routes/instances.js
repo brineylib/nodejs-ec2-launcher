@@ -45,7 +45,7 @@ exports.list = function(req, res) {
                         instanceSelected = instance;
                     }
                     instances.push(instance);
-                    //console.log(JSON.stringify(instance, null, '\t'));
+                    console.log(JSON.stringify(instance, null, '\t'));
                 }
             });
             res.render('instances', { user: req.user, instances: instances, instance: instanceSelected });
